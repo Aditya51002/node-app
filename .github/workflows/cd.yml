@@ -1,0 +1,20 @@
+name: deploy to ec2
+on:
+    workflow_run:
+        workflows:
+            - type: completed
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            -name: deploy to ec2
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                host: ${{sercrets.EC2_HOST}}
+                username: ${{sercrets.EC2_USERNAME}}
+                key: ${{sercrets.EC2_KEY}}
+                script: 
+                  sudo dcoker pull aditya0005/node-app:latest
+                  sudo docker rm -f node-app || true
+                  sudo docker run -d -p 3000:3000 --name node-app aditya0005/node-app:latest
