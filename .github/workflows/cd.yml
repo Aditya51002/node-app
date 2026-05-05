@@ -8,12 +8,12 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            -name: deploy to ec2
+            - name: deploy to ec2
               uses: appleboy/ssh-action@v1.0.3
               with:
-                host: ${{sercrets.EC2_HOST}}
-                username: ${{sercrets.EC2_USERNAME}}
-                key: ${{sercrets.EC2_KEY}}
+                host: ${{secrets.EC2_HOST}}
+                username: ${{secrets.EC2_USERNAME}}
+                key: ${{secrets.EC2_KEY}}
                 script: 
                   sudo dcoker pull aditya0005/node-app:latest
                   sudo docker rm -f node-app || true
